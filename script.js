@@ -85,7 +85,28 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ----- 3. HOMEPAGE — ULTIMELE 3 ARTICOLE ---------------------- */
+  /* ----- 3. HOMEPAGE — CARUSEL ULTIMELE ARTICOLE ----------------- */
+  function construiesteCarouselCard(post) {
+    var meta = scapaHtml(post.category) + ' &middot; ' + scapaHtml(formateazaData(post.date));
+    var thumb = post.thumbnail
+      ? '<img class="carousel-card__thumb" src="' + scapaHtml(post.thumbnail) +
+        '" alt="' + scapaHtml(post.title) + '" loading="lazy">'
+      : '';
+    var summary = post.summary
+      ? '<p class="carousel-card__summary">' + scapaHtml(post.summary) + '</p>'
+      : '';
+
+    return '' +
+      '<a class="carousel-card" href="' + scapaHtml(post.file) + '">' +
+        thumb +
+        '<div class="carousel-card__body">' +
+          '<p class="carousel-card__meta">' + meta + '</p>' +
+          '<h3 class="carousel-card__title">' + scapaHtml(post.title) + '</h3>' +
+          summary +
+        '</div>' +
+      '</a>';
+  }
+
   var latestGrid = document.getElementById('latestPostGrid');
   if (latestGrid) {
     fetch('posts.json', { cache: 'no-store' })
@@ -100,8 +121,9 @@ document.addEventListener('DOMContentLoaded', function () {
           latestGrid.innerHTML = '<p class="post-grid-error">Niciun articol publicat încă.</p>';
           return;
         }
-        var latest = visible.slice(0, 3);
-        latestGrid.innerHTML = latest.map(construiesteCard).join('');
+        var latest = visible.slice(0, 5);
+        var cards = latest.map(construiesteCarouselCard).join('');
+        latestGrid.innerHTML = cards + cards;
       })
       .catch(function () {
         latestGrid.innerHTML = '<p class="post-grid-error">Articolele nu au putut fi încărcate.</p>';
