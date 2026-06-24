@@ -392,13 +392,16 @@ textarea:focus-visible {
   display: flex;
   gap: 24px;
   width: max-content;
-  animation: carousel-scroll 20s linear infinite;
+  will-change: transform;
+}
+.carousel-track.is-scrolling {
+  animation: carousel-scroll var(--carousel-duration, 20s) linear infinite;
 }
 .carousel-track:hover { animation-play-state: paused; }
 
 @keyframes carousel-scroll {
   0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(var(--carousel-offset)); }
 }
 
 .carousel-card {

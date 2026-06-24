@@ -123,7 +123,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         var latest = visible.slice(0, 5);
         var cards = latest.map(construiesteCarouselCard).join('');
-        latestGrid.innerHTML = cards + cards;
+        var copies = latest.length <= 2 ? 4 : 3;
+        var html = '';
+        for (var c = 0; c < copies; c++) { html += cards; }
+        latestGrid.innerHTML = html;
+
+        requestAnimationFrame(function () {
+          var oneSetWidth = 0;
+          var children = latestGrid.children;
+          var count = latest.length;
+          for (var i = 0; i < count; i++) {
+            oneSetWidth += children[i].offsetWidth + 24;
+          }
+          latestGrid.style.setProperty('--carousel-offset', '-' + oneSetWidth + 'px');
+          var speed = 50;
+          latestGrid.style.setProperty('--carousel-duration', (oneSetWidth / speed) + 's');
+          latestGrid.classList.add('is-scrolling');
+        });
       })
       .catch(function () {
         latestGrid.innerHTML = '<p class="post-grid-error">Articolele nu au putut fi încărcate.</p>';
