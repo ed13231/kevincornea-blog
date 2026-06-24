@@ -1,5 +1,14 @@
 [
   {
+    "slug": "ddd",
+    "title": ":DDD",
+    "date": "2026-06-24",
+    "category": "Jocuri video",
+    "summary": "",
+    "thumbnail": "",
+    "file": "posts/ddd.html"
+  },
+  {
     "slug": "de-ce-scriu",
     "title": "De ce am decis să scriu",
     "date": "2025-02-10",
