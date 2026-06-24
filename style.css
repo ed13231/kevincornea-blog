@@ -117,7 +117,7 @@ textarea:focus-visible {
   color: var(--accent);
   background: transparent;
   border: 1.5px solid var(--accent);
-  border-radius: 2px;          /* ușor pătrătos, ton istoric */
+  border-radius: 2px;
   padding: 12px 28px;
   cursor: pointer;
   transition: background 0.2s ease, color 0.2s ease;
@@ -126,6 +126,18 @@ textarea:focus-visible {
 .btn:focus-visible {
   background: var(--accent);
   color: #fff;
+}
+.btn--hero {
+  font-size: 16px;
+  padding: 18px 48px;
+  background: var(--accent);
+  color: #fff;
+  border-width: 2px;
+}
+.btn--hero:hover,
+.btn--hero:focus-visible {
+  background: var(--accent-dark);
+  border-color: var(--accent-dark);
 }
 
 /* ----- 4. NAVIGAȚIE --------------------------------------------- */
@@ -194,12 +206,10 @@ textarea:focus-visible {
   max-width: var(--maxw);
   margin: 0 auto;
   padding: 84px 24px 72px;
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: 56px;
-  align-items: center;
+  display: flex;
+  justify-content: center;
 }
-.hero-text { max-width: 520px; }
+.hero-text { max-width: 620px; text-align: center; }
 
 .eyebrow {
   font-family: var(--font-ui);
@@ -208,6 +218,7 @@ textarea:focus-visible {
   text-transform: uppercase;
   color: var(--accent);
   margin: 0 0 18px;
+  text-align: center;
 }
 .hero-title {
   font-size: clamp(46px, 6vw, 60px);
@@ -218,6 +229,7 @@ textarea:focus-visible {
 .hero-title-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 18px;
   margin-bottom: 18px;
 }
@@ -232,9 +244,7 @@ textarea:focus-visible {
   color: var(--text-muted);
   margin: 0;
 }
-.hero-text .rule { margin-left: 0; margin: 28px 0; }
-
-.hero-media { display: flex; justify-content: center; }
+.hero-text .rule { margin: 28px auto; }
 #hero-photo {
   width: 320px;
   height: 420px;
@@ -323,6 +333,59 @@ textarea:focus-visible {
   font-size: 12px;
   letter-spacing: 0.04em;
   color: var(--accent);
+}
+
+/* ----- 7b. SEARCH BAR ------------------------------------------- */
+.search-wrap { margin-bottom: 28px; }
+.search-input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text);
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 13px 18px;
+}
+.search-input::placeholder { color: #9a988f; }
+
+/* ----- 7c. PAGINATION ------------------------------------------- */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.pagination button {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.pagination button:hover { background: var(--bg-alt); }
+.pagination button.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.pagination button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ----- 7d. LATEST POSTS CTA ------------------------------------ */
+.latest-posts-cta {
+  text-align: center;
+  margin-top: 36px;
 }
 
 /* ----- 8. CONTACT ----------------------------------------------- */

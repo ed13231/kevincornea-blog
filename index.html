@@ -73,21 +73,32 @@
 
           <span class="rule"></span>
 
-          <a class="btn" href="blog.html">Citește blogul &rarr;</a>
+          <a class="btn btn--hero" href="blog.html">Citește blogul &rarr;</a>
         </div>
 
-        <div class="hero-media">
-          <!-- KEVIN: Înlocuiește 'images/hero-photo.jpg' cu poza ta reală (portret, ~320×420px). -->
-          <img id="hero-photo" src="images/hero-photo.jpg" alt="Portret Kevin Cornea" width="320" height="420">
-        </div>
 
       </div>
     </section>
 
     <!-- ============================================================= -->
-    <!-- SECȚIUNEA BLOG a fost mutată pe pagina separată blog.html.    -->
-    <!-- Lista de articole se vede acolo (link din meniu și din buton).-->
+    <!-- SECȚIUNEA — ULTIMELE ARTICOLE                                 -->
     <!-- ============================================================= -->
+    <section class="section section--blog" id="latest-posts">
+      <div class="container">
+        <header class="section-head section-head--center">
+          <h2 class="section-title">Ultimele articole</h2>
+          <span class="rule"></span>
+        </header>
+
+        <div class="post-grid" id="latestPostGrid" aria-live="polite">
+          <p class="post-grid-loading">Se încarcă articolele…</p>
+        </div>
+
+        <div class="latest-posts-cta">
+          <a class="btn" href="blog.html">Vezi toate articolele &rarr;</a>
+        </div>
+      </div>
+    </section>
 
     <!-- ============================================================= -->
     <!-- SECȚIUNEA 3 — CONTACT                                         -->
@@ -151,7 +162,7 @@
 
         <h3 class="legal-subtitle">Drepturi de autor</h3>
         <p>
-          &copy; 2024–2025 Kevin Cornea. Textele și materialele
+          Textele și materialele
           publicate pe acest site nu pot fi reproduse fără acordul autorului.
         </p>
 
