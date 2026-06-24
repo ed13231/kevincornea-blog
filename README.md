@@ -6,7 +6,7 @@ articole noi — fără să știi să programezi.
 
 ---
 
-## Cuprins
+## Cuprins w
 
 1. [Cum arată fișierele](#cum-arată-fișierele)
 2. [Cum adaug un articol nou](#cum-adaug-un-articol-nou) ← cel mai folosit
