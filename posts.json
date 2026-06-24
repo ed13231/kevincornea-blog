@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "de-ce-scriu",
+    "title": "De ce am decis să scriu",
+    "date": "2025-02-10",
+    "category": "Reflecții",
+    "summary": "O scurtă introducere despre motivele care m-au împins să țin un jurnal public și ce sper să găsesc aici.",
+    "thumbnail": "images/posts/primul-articol-thumb.jpg",
+    "file": "posts/primul-articol-exemplu.html"
+  },
+  {
+    "slug": "orasul-la-prima-ora",
+    "title": "Orașul la prima oră a dimineții",
+    "date": "2025-01-15",
+    "category": "Reportaj",
+    "summary": "Un mic reportaj despre cum arată străzile înainte ca lumea să se trezească și despre oamenii care le țin în viață.",
+    "thumbnail": "images/posts/al-doilea-articol-thumb.jpg",
+    "file": "posts/al-doilea-articol-exemplu.html"
+  }
+]

@@ -1,0 +1,556 @@
+/* =================================================================
+   KEVIN CORNEA — STILURI GLOBALE
+   -----------------------------------------------------------------
+   Estetică: editorial, sobru, cald, literar.
+   KEVIN: De regulă nu e nevoie să atingi acest fișier. Dacă vrei
+   totuși să schimbi o culoare, modifică valorile din ":root" de jos.
+   ================================================================= */
+
+/* ----- 1. VARIABILE DE CULOARE ȘI FONT --------------------------- */
+:root {
+  --bg:          #F5F3EE;   /* fundal principal (bej cald) */
+  --bg-alt:      #EDEBE4;   /* fundal secundar / carduri */
+  --text:        #2C2B28;   /* text principal */
+  --text-muted:  #6B6960;   /* text secundar / metadata */
+  --accent:      #7C6A4E;   /* accent (maro sepia) */
+  --accent-dark: #5F5139;   /* accent la hover */
+  --line:        #C9C5BB;   /* linii / separatoare */
+  --nav-bg:      #FFFFFF;   /* fundal navigație */
+  --footer-bg:   #2C2B28;   /* fundal footer */
+  --footer-text: #C9C5BB;   /* text footer */
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-ui:      system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --maxw: 1140px;
+  --nav-h: 64px;
+}
+
+/* ----- 2. RESET & BAZĂ ------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  /* compensează înălțimea navigației fixe când se sare la o secțiune */
+  scroll-padding-top: var(--nav-h);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-dark); }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+/* Container central reutilizabil */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.container--narrow { max-width: 620px; }
+.container--legal  { max-width: 720px; }
+
+/* Linie / separator scurt în culoarea accent */
+.rule {
+  display: block;
+  width: 60px;
+  height: 0;
+  border-bottom: 1.5px solid var(--accent);
+  margin: 22px auto;
+}
+.rule--left { margin-left: 0; margin-right: auto; }
+
+/* Texte ascunse vizual, dar accesibile pentru cititoare de ecran */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Skip-link de accesibilitate */
+.skip-link {
+  position: absolute; left: 12px; top: -48px;
+  background: var(--accent); color: #fff;
+  padding: 10px 16px; border-radius: 2px;
+  font-family: var(--font-ui); font-size: 13px;
+  z-index: 100; transition: top 0.2s ease;
+}
+.skip-link:focus { top: 12px; color: #fff; }
+
+/* Focus vizibil la navigarea cu tastatura */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ----- 3. BUTON ------------------------------------------------- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: transparent;
+  border: 1.5px solid var(--accent);
+  border-radius: 2px;          /* ușor pătrătos, ton istoric */
+  padding: 12px 28px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn:hover,
+.btn:focus-visible {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ----- 4. NAVIGAȚIE --------------------------------------------- */
+.nav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--line);
+}
+.nav {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  height: var(--nav-h);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.nav-logo:hover { color: var(--accent); }
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+.nav-links a:hover { color: var(--accent); }
+
+/* Buton hamburger (apare doar pe mobil) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px; height: 40px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--text);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+/* ----- 5. HERO -------------------------------------------------- */
+.hero { background: var(--bg); }
+.hero-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 84px 24px 72px;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero-text { max-width: 520px; }
+
+.eyebrow {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 18px;
+}
+.hero-title {
+  font-size: clamp(46px, 6vw, 60px);
+  line-height: 1.02;
+  margin: 0 0 18px;
+}
+/* Rând cu logo-ul KC alături de nume */
+.hero-title-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+.hero-title-row .hero-title { margin: 0; }
+.hero-logo {
+  width: 72px;
+  height: auto;
+  flex-shrink: 0;
+}
+.hero-tagline {
+  font-size: 18px;
+  color: var(--text-muted);
+  margin: 0;
+}
+.hero-text .rule { margin-left: 0; margin: 28px 0; }
+
+.hero-media { display: flex; justify-content: center; }
+#hero-photo {
+  width: 320px;
+  height: 420px;
+  object-fit: cover;
+  filter: saturate(0.85);          /* ușor desaturat, ton editorial */
+  border: 1px solid var(--accent);
+  box-shadow: 0 10px 34px rgba(44, 43, 40, 0.10);
+}
+
+/* ----- 6. SECȚIUNI GENERICE ------------------------------------- */
+.section { padding: 72px 0; }
+.section--blog    { background: var(--bg); }
+.section--contact { background: var(--bg-alt); border-top: 1px solid var(--line); }
+.section--legal   { background: var(--bg); border-top: 1px solid var(--line); }
+
+.section-head { margin-bottom: 36px; }
+.section-head--center { text-align: center; }
+.section-head--center .rule { margin-left: auto; margin-right: auto; }
+.section-title { font-size: 36px; }
+
+/* ----- 7. GRID & CARDURI BLOG ----------------------------------- */
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.post-grid-loading,
+.post-grid-error {
+  grid-column: 1 / -1;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-alt);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.post-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+.post-card__thumb {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  filter: saturate(0.85);
+}
+.post-card__body { padding: 20px 22px 24px; display: flex; flex-direction: column; flex: 1; }
+
+.post-card__meta {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 10px;
+}
+.post-card__title {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 10px;
+}
+.post-card__title a { color: var(--text); }
+.post-card__title a:hover { color: var(--accent); }
+
+.post-card__summary {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+  /* limitează la 2 rânduri */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.post-card__more {
+  margin-top: auto;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+}
+
+/* ----- 8. CONTACT ----------------------------------------------- */
+.lead-text { text-align: center; color: var(--text-muted); margin: 0 0 30px; }
+
+.contact-form { display: flex; flex-direction: column; gap: 14px; }
+.contact-form input,
+.contact-form textarea {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  padding: 13px 15px;
+  width: 100%;
+}
+.contact-form input::placeholder,
+.contact-form textarea::placeholder { color: #9a988f; }
+.contact-form textarea { resize: vertical; }
+.contact-form .btn { align-self: flex-start; margin-top: 4px; }
+
+/* Bifa de consimțământ */
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.consent input {
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.consent a { text-decoration: underline; text-underline-offset: 2px; }
+
+/* Buton dezactivat cât timp bifa nu e bifată */
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background: transparent;
+  color: var(--accent);
+}
+
+.contact-email {
+  text-align: center;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 26px;
+}
+
+/* ----- 9. LEGAL ------------------------------------------------- */
+.legal-subtitle {
+  font-family: var(--font-display);
+  font-size: 20px;
+  margin: 30px 0 8px;
+}
+.section--legal p { color: var(--text-muted); margin: 0 0 6px; }
+
+/* ----- 10. FOOTER ----------------------------------------------- */
+.footer {
+  background: var(--footer-bg);
+  color: var(--footer-text);
+  padding: 30px 0;
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+}
+.footer-brand { margin: 0; }
+.footer-links { margin: 0; display: flex; gap: 20px; }
+.footer-links a { color: var(--footer-text); }
+.footer-links a:hover { color: #fff; }
+
+/* =================================================================
+   11. PAGINĂ DE ARTICOL (fișierele din folderul /posts)
+   ================================================================= */
+.post-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 24px 24px;
+}
+.back-link {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 28px;
+}
+.post-header { margin-bottom: 36px; }
+.post-meta {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 14px;
+}
+.post-header h1 {
+  font-size: clamp(32px, 5vw, 44px);
+  line-height: 1.1;
+  margin: 0 0 16px;
+}
+.post-lead {
+  font-size: 20px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin: 0 0 28px;
+}
+.post-hero-img {
+  width: 100%;
+  max-height: 440px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  filter: saturate(0.85);
+}
+.post-body { font-size: 18px; }
+.post-body p { margin: 0 0 22px; }
+.post-body h2 {
+  font-family: var(--font-display);
+  font-size: 26px;
+  margin: 40px 0 14px;
+}
+.post-body h3 {
+  font-family: var(--font-display);
+  font-size: 21px;
+  margin: 32px 0 12px;
+}
+.post-body blockquote {
+  margin: 28px 0;
+  padding: 6px 0 6px 22px;
+  border-left: 3px solid var(--accent);
+  color: var(--text-muted);
+  font-style: italic;
+}
+.post-body a { text-decoration: underline; text-underline-offset: 2px; }
+.post-body img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  margin: 26px 0;
+}
+.post-footer-nav {
+  max-width: 720px;
+  margin: 8px auto 64px;
+  padding: 28px 24px 0;
+  border-top: 1px solid var(--line);
+}
+
+/* =================================================================
+   12. RESPONSIVE — TABLETĂ ȘI MOBIL
+   ================================================================= */
+
+/* Tabletă: blog pe 2 coloane */
+@media (max-width: 900px) {
+  .post-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-inner { gap: 40px; }
+}
+
+/* Mobil */
+@media (max-width: 680px) {
+  /* Hamburger devine vizibil */
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    position: absolute;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--line);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .nav-links.is-open { max-height: 240px; }
+  .nav-links li { width: 100%; }
+  .nav-links a {
+    display: block;
+    padding: 14px 24px;
+    border-top: 1px solid var(--line);
+  }
+
+  /* Hamburger -> X când e deschis */
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Hero pe o coloană, imaginea sus */
+  .hero-inner {
+    grid-template-columns: 1fr;
+    padding: 48px 24px 56px;
+    text-align: center;
+  }
+  .hero-text { max-width: none; }
+  .hero-title-row { justify-content: center; }
+  .hero-text .rule { margin: 28px auto; }
+  .hero-media { order: -1; }
+  #hero-photo { width: 260px; height: 340px; }
+
+  /* Blog pe o coloană */
+  .post-grid { grid-template-columns: 1fr; }
+
+  .section { padding: 56px 0; }
+  .footer-inner { flex-direction: column; text-align: center; }
+}
+
+/* Respectă preferința de mișcare redusă */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; }
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- ============================================================= -->
+  <!-- KEVIN: Aici sunt informațiile pe care le văd Google și rețelele -->
+  <!-- sociale. Le poți modifica dacă vrei, dar nu sunt obligatorii.   -->
+  <!-- ============================================================= -->
+  <title>Kevin Cornea — Jurnal personal</title>
+  <meta name="description" content="Blog personal al lui Kevin Cornea — gânduri, reportaje și reflecții.">
+  <meta name="author" content="Kevin Cornea">
+  <meta property="og:title" content="Kevin Cornea — Blog">
+  <meta property="og:description" content="Gânduri, reportaje și reflecții despre lumea în care trăim.">
+  <meta property="og:image" content="https://kevincornea.blog/images/hero-photo.jpg">
+  <meta property="og:url" content="https://kevincornea.blog">
+  <meta property="og:type" content="website">
+  <link rel="canonical" href="https://kevincornea.blog">
+
+  <!-- Fonturi Google: Playfair Display (titluri) + Lora (text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Stilurile site-ului -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Link de accesibilitate: sare direct la conținut (apare la tastatură) -->
+  <a class="skip-link" href="#top">Sari la conținut</a>
+
+  <!-- ============================================================= -->
+  <!-- NAVIGAȚIE (rămâne fixă sus la scroll)                          -->
+  <!-- KEVIN: Numele și linkurile de mai jos sunt ale tale.           -->
+  <!-- ============================================================= -->
+  <header class="nav-wrap">
+    <nav class="nav" aria-label="Navigație principală">
+      <a class="nav-logo" href="#top">Kevin Cornea</a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Deschide meniul" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#legal">Legal</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- ============================================================= -->
+    <!-- SECȚIUNEA 1 — HERO / LANDING                                  -->
+    <!-- ============================================================= -->
+    <section class="hero" aria-label="Prezentare">
+      <div class="hero-inner">
+
+        <div class="hero-text">
+          <p class="eyebrow">— Jurnal personal —</p>
+
+          <!-- KEVIN: Numele afișat mare, cu logo-ul KC alături. -->
+          <div class="hero-title-row">
+            <img class="hero-logo" src="images/logo-kc.png" alt="Logo Kevin Cornea" width="72" height="77">
+            <h1 class="hero-title">Kevin Cornea</h1>
+          </div>
+
+          <!-- KEVIN: Textul de bun venit de pe prima pagină. -->
+          <p class="hero-tagline">Salut! Bine ai venit pe blogul meu. Aici vei găsi în principal articole despre jocuri video, tehnologie și istorie, dar și conținut variat, precum interviuri stradale, relatări de la evenimente și discuții despre subiecte de actualitate.</p>
+
+          <span class="rule"></span>
+
+          <a class="btn" href="blog.html">Citește blogul &rarr;</a>
+        </div>
+
+        <div class="hero-media">
+          <!-- KEVIN: Înlocuiește 'images/hero-photo.jpg' cu poza ta reală (portret, ~320×420px). -->
+          <img id="hero-photo" src="images/hero-photo.jpg" alt="Portret Kevin Cornea" width="320" height="420">
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- SECȚIUNEA BLOG a fost mutată pe pagina separată blog.html.    -->
+    <!-- Lista de articole se vede acolo (link din meniu și din buton).-->
+    <!-- ============================================================= -->
+
+    <!-- ============================================================= -->
+    <!-- SECȚIUNEA 3 — CONTACT                                         -->
+    <!-- ============================================================= -->
+    <section class="section section--contact" id="contact">
+      <div class="container container--narrow">
+        <header class="section-head section-head--center">
+          <h2 class="section-title">Contact</h2>
+          <span class="rule"></span>
+        </header>
+
+        <p class="lead-text">Ai o întrebare, o sugestie sau vrei să colaborăm? Trimite-mi un mesaj.</p>
+
+        <!-- KEVIN: Înregistrează-te gratuit pe formspree.io, creează un form nou -->
+        <!-- și înlocuiește 'FORMSPREE_ID' de mai jos cu ID-ul primit (ex: xxyyzzww). -->
+        <form class="contact-form" action="https://formspree.io/f/FORMSPREE_ID" method="POST">
+          <label class="sr-only" for="cf-name">Numele tău</label>
+          <input id="cf-name" type="text" name="name" placeholder="Numele tău" required>
+
+          <label class="sr-only" for="cf-email">Email-ul tău</label>
+          <input id="cf-email" type="email" name="email" placeholder="Email-ul tău" required>
+
+          <label class="sr-only" for="cf-message">Mesajul tău</label>
+          <textarea id="cf-message" name="message" rows="5" placeholder="Mesajul tău" required></textarea>
+
+          <!-- Bifă de consimțământ: fără ea, butonul Trimite rămâne blocat -->
+          <label class="consent">
+            <input id="cf-consent" type="checkbox" name="consent" required>
+            <span>Am citit și sunt de acord cu <a href="#legal">informațiile legale</a> (prelucrarea datelor mele pentru a primi un răspuns).</span>
+          </label>
+
+          <button class="btn" type="submit" id="cf-submit" disabled>Trimite &rarr;</button>
+        </form>
+
+        <!-- KEVIN: Adresa ta de email afișată vizitatorilor. -->
+        <p class="contact-email">
+          Sau scrie-mi direct la
+          <a href="mailto:kevincorneablog@gmail.com">kevincorneablog@gmail.com</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- SECȚIUNEA 4 — LEGAL                                           -->
+    <!-- KEVIN: Înlocuiește textele de mai jos cu informațiile tale.   -->
+    <!-- ============================================================= -->
+    <section class="section section--legal" id="legal">
+      <div class="container container--legal">
+        <header class="section-head section-head--center">
+          <h2 class="section-title">Informații legale</h2>
+          <span class="rule"></span>
+        </header>
+
+        <h3 class="legal-subtitle">Politică de confidențialitate (GDPR)</h3>
+        <p>
+          Acest site colectează datele pe care le trimiți voluntar prin formularul de contact
+          (nume, adresă de email și mesaj), exclusiv pentru a putea răspunde solicitării tale.
+          Datele nu sunt vândute și nu sunt partajate cu terți în scopuri comerciale. Poți cere
+          oricând ștergerea lor scriind la adresa de contact de mai sus.
+        </p>
+
+        <h3 class="legal-subtitle">Drepturi de autor</h3>
+        <p>
+          &copy; 2024–2025 Kevin Cornea. Textele și materialele
+          publicate pe acest site nu pot fi reproduse fără acordul autorului.
+        </p>
+
+        <h3 class="legal-subtitle">Disclaimer editorial</h3>
+        <p>
+          Opiniile exprimate pe acest blog îi aparțin autorului și au caracter personal.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================= -->
+  <!-- FOOTER                                                        -->
+  <!-- ============================================================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">&copy; <span id="year">2025</span> Kevin Cornea · kevincornea.blog</p>
+      <p class="footer-links">
+        <a href="mailto:kevincorneablog@gmail.com">Email</a>
+        <!-- KEVIN: Decomentează și completează linkurile sociale dacă le folosești. -->
+        <!-- <a href="https://instagram.com/utilizatorul-tau" target="_blank" rel="noopener">Instagram</a> -->
+        <!-- <a href="https://x.com/utilizatorul-tau" target="_blank" rel="noopener">X</a> -->
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

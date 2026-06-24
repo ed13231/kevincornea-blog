@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Panou articole — Kevin Cornea</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .admin-wrap { max-width: 780px; margin: 0 auto; padding: 48px 24px 90px; }
+    .admin-title { font-family: var(--font-display); font-size: 32px; margin: 0; }
+    .admin-sub { color: var(--text-muted); font-family: var(--font-ui); font-size: 14px; margin: 4px 0 0; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 26px; flex-wrap: wrap; }
+    .field { margin-bottom: 18px; }
+    .field label { display: block; font-family: var(--font-ui); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 7px; }
+    .field input, .field select, .field textarea { width: 100%; font-family: var(--font-body); font-size: 16px; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 2px; padding: 12px 14px; }
+    .field textarea { resize: vertical; min-height: 240px; line-height: 1.7; }
+    .field .hint { font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn-sm { font-family: var(--font-ui); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; padding: 7px 14px; border: 1.5px solid var(--accent); color: var(--accent); background: transparent; border-radius: 2px; cursor: pointer; transition: background .2s, color .2s; }
+    .btn-sm:hover { background: var(--accent); color: #fff; }
+    .btn-danger { border-color: #a8453a; color: #a8453a; }
+    .btn-danger:hover { background: #a8453a; color: #fff; }
+    .admin-actions { display: flex; align-items: center; gap: 14px; margin-top: 8px; flex-wrap: wrap; }
+    .msg { margin-top: 18px; font-family: var(--font-ui); font-size: 14px; padding: 12px 14px; border-radius: 3px; display: none; }
+    .msg.show { display: block; }
+    .msg.ok { background: #e6efe7; color: #2f5d3a; border: 1px solid #bcd6bf; }
+    .msg.err { background: #f3e3e1; color: #7a3a32; border: 1px solid #ddbdb7; }
+    .msg.info { background: var(--bg-alt); color: var(--text-muted); border: 1px solid var(--line); }
+    .gate { max-width: 420px; }
+    .hidden { display: none; }
+    .linklike { background: none; border: 0; color: var(--accent); font-family: var(--font-ui); font-size: 13px; cursor: pointer; text-decoration: underline; }
+    .post-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+    .post-row .meta { font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .post-row .name { font-family: var(--font-display); font-size: 17px; }
+    .post-row .acts { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge { display: inline-block; font-family: var(--font-ui); font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; padding: 2px 8px; border-radius: 20px; margin-left: 8px; vertical-align: middle; }
+    .badge.public { background: #e6efe7; color: #2f5d3a; }
+    .badge.arhivat { background: #ece9e2; color: #6b6960; }
+    .badge.program { background: #efe7d8; color: #7c6a4e; }
+    .img-chip { display: inline-block; font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); background: var(--bg-alt); border: 1px solid var(--line); border-radius: 20px; padding: 3px 10px; margin: 6px 6px 0 0; }
+    @media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="nav-wrap">
+    <nav class="nav" aria-label="Navigație">
+      <a class="nav-logo" href="index.html">Kevin Cornea</a>
+      <span style="font-family:var(--font-ui);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted)">Panou articole</span>
+    </nav>
+  </header>
+
+  <!-- ECRAN: PAROLĂ -->
+  <div class="admin-wrap gate" id="gate">
+    <h1 class="admin-title">Autentificare</h1>
+    <p class="admin-sub" style="margin-bottom:24px">Introdu parola ca să administrezi articolele.</p>
+    <div class="field"><label for="pw">Parolă</label><input id="pw" type="password" placeholder="Parola ta"></div>
+    <label style="display:flex;align-items:center;gap:8px;font-family:var(--font-ui);font-size:13px;color:var(--text-muted);margin-bottom:18px;cursor:pointer">
+      <input type="checkbox" id="remember" checked style="width:16px;height:16px;accent-color:var(--accent)"> Ține-mă minte pe acest dispozitiv
+    </label>
+    <button class="btn" id="enterBtn">Continuă &rarr;</button>
+    <div class="msg" id="gateMsg"></div>
+  </div>
+
+  <!-- ECRAN: LISTĂ ARTICOLE -->
+  <div class="admin-wrap hidden" id="listView">
+    <div class="topbar">
+      <div>
+        <h1 class="admin-title">Articolele tale</h1>
+        <p class="admin-sub">Scrie, editează, arhivează sau șterge articole.</p>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <button class="btn" id="newBtn">+ Articol nou</button>
+        <button class="linklike" id="logoutBtn">Ieși</button>
+      </div>
+    </div>
+    <div id="postList"></div>
+    <div class="msg" id="listMsg"></div>
+  </div>
+
+  <!-- ECRAN: FORMULAR (nou / editare) -->
+  <div class="admin-wrap hidden" id="formView">
+    <div class="topbar">
+      <h1 class="admin-title" id="formTitle">Articol nou</h1>
+      <button class="linklike" id="backBtn">&larr; Înapoi la listă</button>
+    </div>
+
+    <div class="field"><label for="f-title">Titlu</label><input id="f-title" type="text" placeholder="Ex: De ce iubesc jocurile retro"></div>
+
+    <div class="row2">
+      <div class="field"><label for="f-category">Categorie</label>
+        <select id="f-category">
+          <option>Jocuri video</option><option>Tehnologie</option><option>Istorie</option>
+          <option>Reportaj</option><option>Interviu</option><option>Actualitate</option>
+          <option>Reflecții</option><option>Altele</option>
+        </select>
+      </div>
+      <div class="field"><label for="f-date">Data afișată</label><input id="f-date" type="date"></div>
+    </div>
+
+    <div class="field">
+      <label for="f-schedule">Programează publicarea (opțional)</label>
+      <input id="f-schedule" type="datetime-local">
+      <p class="hint">Dacă alegi o dată/oră din viitor, articolul rămâne ascuns pe blog până atunci, apoi apare singur. Lasă gol ca să publici acum.</p>
+    </div>
+
+    <div class="field"><label for="f-summary">Rezumat scurt (apare pe card)</label><input id="f-summary" type="text" placeholder="Despre ce e articolul, pe scurt."></div>
+
+    <div class="field">
+      <label for="f-image">Imagine principală (opțional)</label>
+      <input id="f-image" type="file" accept="image/*">
+      <p class="hint" id="thumbNote"></p>
+    </div>
+
+    <div class="field">
+      <label for="f-body">Conținut</label>
+      <textarea id="f-body" placeholder="Scrie aici articolul...
+
+Lasă un rând gol între paragrafe.
+## Subtitlu
+**text îngroșat**
+> citat"></textarea>
+      <div class="admin-actions" style="margin-top:10px">
+        <button class="btn-sm" id="insertImgBtn" type="button">+ Inserează imagine în text</button>
+        <input id="bodyImgInput" type="file" accept="image/*" class="hidden">
+      </div>
+      <div id="imgChips"></div>
+      <p class="hint">Formatare simplă (Markdown): <strong>**îngroșat**</strong>, <strong>## subtitlu</strong>, <strong>&gt; citat</strong>, liste cu „- ". Un rând gol = paragraf nou.</p>
+    </div>
+
+    <div class="admin-actions">
+      <button class="btn" id="publishBtn">Publică &rarr;</button>
+      <span id="spinner" style="font-family:var(--font-ui);font-size:13px;color:var(--text-muted);display:none">Se salvează…</span>
+    </div>
+    <div class="msg" id="editorMsg"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12/marked.min.js"></script>
+  <script>
+  (function () {
+    var KEY = 'kc_publish_pw';
+    var $ = function (id) { return document.getElementById(id); };
+
+    var gate = $('gate'), listView = $('listView'), formView = $('formView');
+    var pw = $('pw'), remember = $('remember'), enterBtn = $('enterBtn'), gateMsg = $('gateMsg');
+    var logoutBtn = $('logoutBtn'), newBtn = $('newBtn'), backBtn = $('backBtn');
+    var postList = $('postList'), listMsg = $('listMsg');
+    var formTitle = $('formTitle');
+    var fTitle = $('f-title'), fCategory = $('f-category'), fDate = $('f-date'),
+        fSchedule = $('f-schedule'), fSummary = $('f-summary'), fImage = $('f-image'),
+        fBody = $('f-body'), thumbNote = $('thumbNote');
+    var insertImgBtn = $('insertImgBtn'), bodyImgInput = $('bodyImgInput'), imgChips = $('imgChips');
+    var publishBtn = $('publishBtn'), spinner = $('spinner'), editorMsg = $('editorMsg');
+
+    var currentPw = '';
+    var editSlug = null;     // null = articol nou
+    var editEntry = null;    // intrarea din posts.json când editezi
+    var lastList = [];       // ultima listă încărcată
+    var bodyImages = [];     // imagini inserate în text (staged)
+    var imgCounter = 0;
+
+    // ---------- autentificare ----------
+    var saved = localStorage.getItem(KEY);
+    if (saved) { currentPw = saved; afterLogin(); }
+
+    enterBtn.addEventListener('click', function () {
+      if (!pw.value.trim()) return;
+      currentPw = pw.value.trim();
+      if (remember.checked) localStorage.setItem(KEY, currentPw);
+      afterLogin();
+    });
+    pw.addEventListener('keydown', function (e) { if (e.key === 'Enter') enterBtn.click(); });
+    logoutBtn.addEventListener('click', function () {
+      localStorage.removeItem(KEY); currentPw = '';
+      listView.classList.add('hidden'); formView.classList.add('hidden');
+      gate.classList.remove('hidden'); pw.value = '';
+    });
+
+    function afterLogin() { gate.classList.add('hidden'); showList(); }
+
+    function msg(el, type, text) { el.className = 'msg show ' + type; el.innerHTML = text; }
+    function clearMsg(el) { el.className = 'msg'; el.textContent = ''; }
+
+    // ---------- utilitare ----------
+    function slugify(s) {
+      var map = { 'ă':'a','â':'a','î':'i','ș':'s','ş':'s','ț':'t','ţ':'t','Ă':'a','Â':'a','Î':'i','Ș':'s','Ț':'t' };
+      return String(s||'').replace(/[ăâîșşțţĂÂÎȘȚ]/g, function (c) { return map[c] || c; })
+        .toLowerCase().replace(/[^a-z0-9\s-]/g, '').trim().replace(/\s+/g, '-').replace(/-+/g, '-').slice(0, 60) || 'articol';
+    }
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    var LUNI = ['Ianuarie','Februarie','Martie','Aprilie','Mai','Iunie','Iulie','August','Septembrie','Octombrie','Noiembrie','Decembrie'];
+    function formatDateRo(iso) {
+      var p = String(iso || '').split('-'); if (p.length !== 3) return iso || '';
+      return parseInt(p[2],10) + ' ' + (LUNI[parseInt(p[1],10)-1] || '') + ' ' + p[0];
+    }
+    function readImage(file) {
+      return new Promise(function (resolve, reject) {
+        var r = new FileReader();
+        r.onload = function () {
+          var ext = (file.name.split('.').pop() || 'jpg').toLowerCase(); if (ext === 'jpeg') ext = 'jpg';
+          resolve({ base64: r.result.split(',')[1], ext: ext, name: file.name });
+        };
+        r.onerror = function () { reject(new Error('Nu am putut citi imaginea.')); };
+        r.readAsDataURL(file);
+      });
+    }
+    function insertAtCursor(ta, text) {
+      var s = ta.selectionStart || 0, e = ta.selectionEnd || 0, v = ta.value;
+      ta.value = v.slice(0, s) + text + v.slice(e);
+      ta.selectionStart = ta.selectionEnd = s + text.length; ta.focus();
+    }
+    function decodeB64Utf8(b64) { try { return decodeURIComponent(escape(atob(b64))); } catch (e) { return ''; } }
+
+    // ---------- listă ----------
+    function showList() {
+      formView.classList.add('hidden'); listView.classList.remove('hidden');
+      clearMsg(editorMsg);
+      loadList();
+    }
+    function loadList() {
+      postList.innerHTML = '<p class="admin-sub">Se încarcă…</p>';
+      fetch('posts.json?t=' + Date.now(), { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (posts) {
+          lastList = Array.isArray(posts) ? posts : [];
+          renderList(lastList);
+        })
+        .catch(function () { postList.innerHTML = '<p class="admin-sub">Nu am putut încărca lista.</p>'; });
+    }
+    function statusBadge(p) {
+      if (p.archived) return '<span class="badge arhivat">Arhivat</span>';
+      if (p.publishAt && new Date(p.publishAt) > new Date()) return '<span class="badge program">Programat</span>';
+      return '<span class="badge public">Public</span>';
+    }
+    function renderList(posts) {
+      if (!posts.length) { postList.innerHTML = '<p class="admin-sub">Niciun articol încă. Apasă „+ Articol nou".</p>'; return; }
+      var html = posts.map(function (p) {
+        var when = p.publishAt ? ('Programat: ' + formatDateRo(String(p.publishAt).slice(0,10))) : formatDateRo(p.date);
+        return '<div class="post-row" data-slug="' + esc(p.slug) + '">' +
+          '<div><div class="name">' + esc(p.title) + statusBadge(p) + '</div>' +
+          '<div class="meta">' + esc(p.category || '') + ' · ' + esc(when) + '</div></div>' +
+          '<div class="acts">' +
+            '<button class="btn-sm act-edit">Editează</button>' +
+            '<button class="btn-sm act-arch">' + (p.archived ? 'Dezarhivează' : 'Arhivează') + '</button>' +
+            '<button class="btn-sm btn-danger act-del">Șterge</button>' +
+          '</div></div>';
+      }).join('');
+      postList.innerHTML = html;
+      Array.prototype.forEach.call(postList.querySelectorAll('.post-row'), function (row) {
+        var slug = row.getAttribute('data-slug');
+        var entry = posts.filter(function (x) { return x.slug === slug; })[0];
+        row.querySelector('.act-edit').addEventListener('click', function () { startEdit(entry); });
+        row.querySelector('.act-arch').addEventListener('click', function () { toggleArchive(entry); });
+        row.querySelector('.act-del').addEventListener('click', function () { removePost(entry); });
+      });
+    }
+
+    function api(payload) {
+      payload.password = currentPw;
+      return fetch('/api/publish', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); });
+    }
+
+    function toggleArchive(entry) {
+      msg(listMsg, 'info', 'Se actualizează…');
+      api({ action: 'archive', slug: entry.slug, archived: !entry.archived }).then(function (out) {
+        if (!out.ok || !out.j.ok) throw new Error(out.j && out.j.error);
+        clearMsg(listMsg); loadList();
+      }).catch(function (e) { msg(listMsg, 'err', 'Eroare: ' + (e.message || e)); });
+    }
+    function removePost(entry) {
+      if (!window.confirm('Sigur ștergi articolul „' + entry.title + '"? Nu se poate anula.')) return;
+      msg(listMsg, 'info', 'Se șterge…');
+      api({ action: 'delete', slug: entry.slug }).then(function (out) {
+        if (!out.ok || !out.j.ok) throw new Error(out.j && out.j.error);
+        msg(listMsg, 'ok', 'Articol șters. Se actualizează în ~30 sec pe site.'); loadList();
+      }).catch(function (e) { msg(listMsg, 'err', 'Eroare: ' + (e.message || e)); });
+    }
+
+    // ---------- formular ----------
+    newBtn.addEventListener('click', function () { startNew(); });
+    backBtn.addEventListener('click', function () { showList(); });
+
+    function resetForm() {
+      fTitle.value = ''; fCategory.selectedIndex = 0; fSummary.value = '';
+      fDate.value = new Date().toISOString().slice(0, 10); fSchedule.value = '';
+      fImage.value = ''; fBody.value = ''; bodyImages = []; imgCounter = 0;
+      imgChips.innerHTML = ''; thumbNote.textContent = ''; clearMsg(editorMsg);
+    }
+    function openForm() { listView.classList.add('hidden'); formView.classList.remove('hidden'); window.scrollTo(0, 0); }
+
+    function startNew() {
+      editSlug = null; editEntry = null; resetForm();
+      formTitle.textContent = 'Articol nou'; openForm();
+    }
+    function startEdit(entry) {
+      editSlug = entry.slug; editEntry = entry; resetForm();
+      formTitle.textContent = 'Editează articol';
+      fTitle.value = entry.title || '';
+      if (entry.category) { for (var i = 0; i < fCategory.options.length; i++) { if (fCategory.options[i].value === entry.category) { fCategory.selectedIndex = i; break; } } }
+      fDate.value = (entry.date || '').slice(0, 10) || new Date().toISOString().slice(0, 10);
+      fSchedule.value = entry.publishAt ? String(entry.publishAt).slice(0, 16) : '';
+      fSummary.value = entry.summary || '';
+      thumbNote.textContent = entry.thumbnail ? 'Imagine actuală păstrată. Alege un fișier doar dacă vrei s-o înlocuiești.' : '';
+      openForm();
+      // încarcă conținutul (markdown) din pagina articolului
+      msg(editorMsg, 'info', 'Se încarcă conținutul…');
+      fetch(entry.file + '?t=' + Date.now(), { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.text() : ''; })
+        .then(function (htmlText) {
+          var doc = new DOMParser().parseFromString(htmlText, 'text/html');
+          var src = doc.getElementById('kc-source');
+          if (src && src.textContent.trim()) { fBody.value = decodeB64Utf8(src.textContent.trim()); }
+          else { var pb = doc.querySelector('.post-body'); fBody.value = pb ? pb.innerHTML.trim() : ''; }
+          clearMsg(editorMsg);
+        })
+        .catch(function () { clearMsg(editorMsg); });
+    }
+
+    insertImgBtn.addEventListener('click', function () { bodyImgInput.click(); });
+    bodyImgInput.addEventListener('change', function () {
+      var f = bodyImgInput.files && bodyImgInput.files[0]; if (!f) return;
+      readImage(f).then(function (img) {
+        var token = '@@KCIMG' + (imgCounter++) + '@@';
+        bodyImages.push({ token: token, base64: img.base64, ext: img.ext });
+        var altname = img.name.replace(/\.[^.]+$/, '');
+        insertAtCursor(fBody, '\n\n![' + altname + '](' + token + ')\n\n');
+        var chip = document.createElement('span'); chip.className = 'img-chip'; chip.textContent = '🖼 ' + img.name;
+        imgChips.appendChild(chip);
+        bodyImgInput.value = '';
+      }).catch(function (e) { msg(editorMsg, 'err', e.message || e); });
+    });
+
+    // construiește pagina HTML completă a articolului
+    function buildPostHtml(d) {
+      var hero = d.heroPath ? ('\n      <img src="' + d.heroPath + '" alt="' + esc(d.title) + '" class="post-hero-img">') : '';
+      var lead = d.summary ? ('\n      <p class="post-lead">' + esc(d.summary) + '</p>') : '';
+      return '' +
+'<!DOCTYPE html>\n<html lang="ro">\n<head>\n' +
+'  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+'  <title>' + esc(d.title) + ' — Kevin Cornea</title>\n' +
+'  <meta name="description" content="' + esc(d.summary) + '">\n' +
+'  <link rel="preconnect" href="https://fonts.googleapis.com">\n' +
+'  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+'  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">\n' +
+'  <link rel="stylesheet" href="../style.css">\n</head>\n<body>\n' +
+'  <header class="nav-wrap">\n    <nav class="nav" aria-label="Navigație principală">\n' +
+'      <a class="nav-logo" href="../index.html">Kevin Cornea</a>\n' +
+'      <button class="nav-toggle" id="navToggle" aria-label="Deschide meniul" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>\n' +
+'      <ul class="nav-links" id="navLinks">\n        <li><a href="../blog.html">Blog</a></li>\n        <li><a href="../index.html#contact">Contact</a></li>\n        <li><a href="../index.html#legal">Legal</a></li>\n      </ul>\n    </nav>\n  </header>\n' +
+'  <article class="post-content">\n    <a class="back-link" href="../blog.html">&larr; Înapoi la articole</a>\n' +
+'    <header class="post-header">\n      <p class="post-meta">' + esc((d.category||'').toUpperCase()) + ' · ' + esc(formatDateRo(d.date)) + '</p>\n' +
+'      <h1>' + esc(d.title) + '</h1>' + lead + hero + '\n    </header>\n' +
+'    <div class="post-body">\n' + d.bodyHtml + '\n    </div>\n  </article>\n' +
+'  <nav class="post-footer-nav" aria-label="Navigare articol">\n    <a class="back-link" href="../blog.html">&larr; Înapoi la toate articolele</a>\n  </nav>\n' +
+'  <footer class="footer">\n    <div class="container footer-inner">\n' +
+'      <p class="footer-brand">&copy; <span id="year">2025</span> Kevin Cornea · kevincornea.blog</p>\n' +
+'      <p class="footer-links"><a href="mailto:kevincorneablog@gmail.com">Email</a></p>\n    </div>\n  </footer>\n' +
+'  <script id="kc-source" type="text/plain">__SOURCE_MD__<\/script>\n' +
+'  <script src="../script.js"><\/script>\n</body>\n</html>\n';
+    }
+
+    publishBtn.addEventListener('click', function () {
+      clearMsg(editorMsg);
+      var title = fTitle.value.trim();
+      var bodyMd = fBody.value.trim();
+      if (!title) { msg(editorMsg, 'err', 'Scrie un titlu.'); return; }
+      if (!bodyMd) { msg(editorMsg, 'err', 'Scrie conținutul articolului.'); return; }
+
+      // dată afișată + programare
+      var displayDate = fDate.value || new Date().toISOString().slice(0, 10);
+      var publishAt = '';
+      if (fSchedule.value) {
+        publishAt = fSchedule.value;            // ex: 2026-07-01T15:00
+        displayDate = fSchedule.value.slice(0, 10);
+      }
+
+      publishBtn.disabled = true; spinner.style.display = 'inline';
+      msg(editorMsg, 'info', 'Se pregătește…');
+
+      var newImg = fImage.files && fImage.files[0];
+      var imgTask = newImg ? readImage(newImg) : Promise.resolve(null);
+
+      imgTask.then(function (img) {
+        var heroPath = '';
+        if (newImg) heroPath = '__THUMB_PATH__';
+        else if (editEntry && editEntry.thumbnail) heroPath = '../' + editEntry.thumbnail;
+
+        var bodyHtml = marked.parse(bodyMd);
+        var postHtml = buildPostHtml({
+          title: title, date: displayDate, category: fCategory.value,
+          summary: fSummary.value.trim(), bodyHtml: bodyHtml, heroPath: heroPath
+        });
+
+        var payload = {
+          action: 'publish',
+          isEdit: !!editSlug,
+          slug: editSlug ? editSlug : slugify(title),
+          title: title, date: displayDate, category: fCategory.value,
+          summary: fSummary.value.trim(),
+          postHtml: postHtml,
+          bodyMarkdown: bodyMd,
+          bodyImages: bodyImages,
+          imageBase64: img ? img.base64 : '',
+          imageExt: img ? img.ext : '',
+          keepThumbnail: (!newImg && editEntry && editEntry.thumbnail) ? editEntry.thumbnail : '',
+          archived: !!(editEntry && editEntry.archived),
+          publishAt: publishAt
+        };
+
+        msg(editorMsg, 'info', 'Se salvează pe blog…');
+        return api(payload);
+      }).then(function (out) {
+        publishBtn.disabled = false; spinner.style.display = 'none';
+        if (!out.ok || !out.j.ok) throw new Error((out.j && out.j.error) || 'Eroare necunoscută.');
+        var note = publishAt ? 'Articol programat. Va apărea pe blog la data aleasă.' : 'Publicat! Apare pe blog în ~30 de secunde.';
+        msg(editorMsg, 'ok', '✓ ' + note);
+        setTimeout(showList, 1200);
+      }).catch(function (e) {
+        publishBtn.disabled = false; spinner.style.display = 'none';
+        var m = String(e.message || e);
+        if (/401/.test(m) || /Parol/i.test(m)) msg(editorMsg, 'err', 'Parolă greșită. Apasă „Ieși" și reintră.');
+        else msg(editorMsg, 'err', 'Nu s-a putut salva: ' + m);
+      });
+    });
+  })();
+  </script>
+</body>
+</html>

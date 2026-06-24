@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- KEVIN: Schimbă titlul de mai jos cu titlul articolului tău. -->
+  <title>TITLUL ARTICOLULUI — Kevin Cornea</title>
+
+  <!-- KEVIN: O descriere scurtă (1 propoziție) pentru Google. -->
+  <meta name="description" content="O scurtă descriere a articolului.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Stilurile site-ului (atenție: ../ pentru că suntem în folderul /posts) -->
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+  <!-- ============================================================= -->
+  <!-- NAVIGAȚIE — IDENTICĂ pe toate paginile. NU o modifica.        -->
+  <!-- ============================================================= -->
+  <header class="nav-wrap">
+    <nav class="nav" aria-label="Navigație principală">
+      <a class="nav-logo" href="../index.html">Kevin Cornea</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Deschide meniul" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../blog.html">Blog</a></li>
+        <li><a href="../index.html#contact">Contact</a></li>
+        <li><a href="../index.html#legal">Legal</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ============================================================= -->
+  <!-- ARTICOLUL                                                     -->
+  <!-- KEVIN: Aici scrii articolul tău. Completează zonele marcate.  -->
+  <!-- ============================================================= -->
+  <article class="post-content">
+
+    <a class="back-link" href="../blog.html">&larr; Înapoi la articole</a>
+
+    <header class="post-header">
+      <!-- KEVIN: Categoria și data. Ex: REPORTAJ · 15 Ianuarie 2025 -->
+      <p class="post-meta">CATEGORIA · 15 Ianuarie 2025</p>
+
+      <!-- KEVIN: Titlul articolului -->
+      <h1>Titlul articolului</h1>
+
+      <!-- KEVIN: Fraza introductivă scurtă care rezumă articolul -->
+      <p class="post-lead">Fraza introductivă scurtă care rezumă articolul.</p>
+
+      <!-- KEVIN: Imaginea mare a articolului (pune fișierul în images/posts/). -->
+      <img src="../images/posts/thumbnail.jpg" alt="Descriere imagine" class="post-hero-img">
+    </header>
+
+    <div class="post-body">
+      <!-- KEVIN: Scrie articolul tău aici, fiecare paragraf între <p> și </p>. -->
+      <p>Primul paragraf al articolului...</p>
+      <p>Al doilea paragraf...</p>
+
+      <h2>Subtitlu de secțiune</h2>
+      <p>Mai mult text...</p>
+
+      <!-- Pentru un citat evidențiat poți folosi: -->
+      <!-- <blockquote>Un citat important din articol.</blockquote> -->
+    </div>
+
+  </article>
+
+  <!-- Navigare jos -->
+  <nav class="post-footer-nav" aria-label="Navigare articol">
+    <a class="back-link" href="../blog.html">&larr; Înapoi la toate articolele</a>
+  </nav>
+
+  <!-- ============================================================= -->
+  <!-- FOOTER — identic pe tot site-ul. NU îl modifica.              -->
+  <!-- ============================================================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">&copy; <span id="year">2025</span> Kevin Cornea · kevincornea.blog</p>
+      <p class="footer-links">
+        <a href="mailto:kevincorneablog@gmail.com">Email</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articole — Kevin Cornea</title>
+  <meta name="description" content="Toate articolele lui Kevin Cornea — gânduri, reportaje și reflecții.">
+  <link rel="canonical" href="https://kevincornea.blog/blog.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#blog">Sari la conținut</a>
+
+  <!-- ============================================================= -->
+  <!-- NAVIGAȚIE — identică pe tot site-ul. NU o modifica.           -->
+  <!-- ============================================================= -->
+  <header class="nav-wrap">
+    <nav class="nav" aria-label="Navigație principală">
+      <a class="nav-logo" href="index.html">Kevin Cornea</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Deschide meniul" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="index.html#legal">Legal</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ============================================================= -->
+  <!-- LISTA TUTUROR ARTICOLELOR                                     -->
+  <!-- KEVIN: NU modifica această secțiune manual. Cardurile se      -->
+  <!-- completează automat din fișierul 'posts.json'.                -->
+  <!-- ============================================================= -->
+  <main class="section section--blog" id="blog">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow">— Toate articolele —</p>
+        <h1 class="section-title">Articole</h1>
+        <span class="rule rule--left"></span>
+      </header>
+
+      <div class="post-grid" id="postGrid" aria-live="polite">
+        <p class="post-grid-loading">Se încarcă articolele…</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- ============================================================= -->
+  <!-- FOOTER — identic pe tot site-ul. NU îl modifica.              -->
+  <!-- ============================================================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">&copy; <span id="year">2025</span> Kevin Cornea · kevincornea.blog</p>
+      <p class="footer-links">
+        <a href="mailto:kevincorneablog@gmail.com">Email</a>
+      </p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
