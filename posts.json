@@ -6,7 +6,10 @@
     "category": "Istorie",
     "summary": "Declinul Imperiului Otoman nu a fost cauzat de un singur eveniment, ci de o combinație de probleme interne și schimbări majore în economia și politica mondială.",
     "thumbnail": "images/posts/cum-a-inceput-declinul-imperiului-otoman-thumb.jpg",
-    "file": "posts/cum-a-inceput-declinul-imperiului-otoman.html"
+    "file": "posts/cum-a-inceput-declinul-imperiului-otoman.html",
+    "accentColor": "#7c6a4e",
+    "textColor": "#2c2b28",
+    "bgColor": "#f5f3ee"
   },
   {
     "slug": "cea-mai-frumoasa-victorie-a-mondialului-2026-nu-s-a-jucat-pe",
