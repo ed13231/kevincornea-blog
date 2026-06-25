@@ -151,19 +151,50 @@ document.addEventListener('DOMContentLoaded', function () {
   var searchInput = document.getElementById('searchInput');
   var paginationEl = document.getElementById('pagination');
 
+  var categoryFilters = document.getElementById('categoryFilters');
+
   if (blogGrid && searchInput && paginationEl) {
     var POSTS_PER_PAGE = 6;
     var allPosts = [];
     var currentPage = 1;
+    var activeCategory = '';
+
+    function buildCategoryFilters() {
+      if (!categoryFilters) return;
+      var cats = {};
+      allPosts.forEach(function (p) { if (p.category) cats[p.category] = true; });
+      var sorted = Object.keys(cats).sort();
+      var html = '<button class="cat-btn active" data-cat="">Toate</button>';
+      sorted.forEach(function (c) {
+        html += '<button class="cat-btn" data-cat="' + c + '">' + c + '</button>';
+      });
+      categoryFilters.innerHTML = html;
+      categoryFilters.querySelectorAll('.cat-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          activeCategory = btn.getAttribute('data-cat');
+          categoryFilters.querySelectorAll('.cat-btn').forEach(function (b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          currentPage = 1;
+          renderBlog();
+        });
+      });
+    }
 
     function getFilteredPosts() {
       var query = searchInput.value.trim().toLowerCase();
-      if (!query) { return allPosts; }
-      return allPosts.filter(function (p) {
-        return (p.title && p.title.toLowerCase().indexOf(query) !== -1) ||
-               (p.summary && p.summary.toLowerCase().indexOf(query) !== -1) ||
-               (p.category && p.category.toLowerCase().indexOf(query) !== -1);
-      });
+      var filtered = allPosts;
+      if (activeCategory) {
+        filtered = filtered.filter(function (p) { return p.category === activeCategory; });
+      }
+      if (query) {
+        filtered = filtered.filter(function (p) {
+          return (p.title && p.title.toLowerCase().indexOf(query) !== -1) ||
+                 (p.summary && p.summary.toLowerCase().indexOf(query) !== -1) ||
+                 (p.category && p.category.toLowerCase().indexOf(query) !== -1) ||
+                 (p.tags && p.tags.join(' ').toLowerCase().indexOf(query) !== -1);
+        });
+      }
+      return filtered;
     }
 
     function renderPagination(total) {
@@ -220,6 +251,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .then(function (posts) {
         if (!Array.isArray(posts)) { posts = []; }
         allPosts = filtreazaVizibile(posts);
+        buildCategoryFilters();
         renderBlog();
       })
       .catch(function (err) {

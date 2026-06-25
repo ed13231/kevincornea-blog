@@ -44,7 +44,30 @@
     .badge.arhivat { background: #ece9e2; color: #6b6960; }
     .badge.program { background: #efe7d8; color: #7c6a4e; }
     .img-chip { display: inline-block; font-family: var(--font-ui); font-size: 12px; color: var(--text-muted); background: var(--bg-alt); border: 1px solid var(--line); border-radius: 20px; padding: 3px 10px; margin: 6px 6px 0 0; }
-    @media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+    .row3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    .row4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 4px; padding: 8px 10px; background: var(--bg-alt); border: 1px solid var(--line); border-bottom: 0; border-radius: 2px 2px 0 0; }
+    .toolbar button { font-family: var(--font-ui); font-size: 13px; padding: 5px 10px; border: 1px solid var(--line); border-radius: 2px; background: var(--bg); color: var(--text); cursor: pointer; transition: background .15s, color .15s; line-height: 1.2; }
+    .toolbar button:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .toolbar .sep { width: 1px; background: var(--line); margin: 2px 4px; align-self: stretch; }
+    .field textarea.has-toolbar { border-radius: 0 0 2px 2px; }
+    .color-row { display: flex; align-items: center; gap: 10px; }
+    .color-row input[type="color"] { width: 40px; height: 34px; border: 1px solid var(--line); border-radius: 2px; padding: 2px; cursor: pointer; background: var(--bg); }
+    .color-row .color-label { font-family: var(--font-ui); font-size: 13px; color: var(--text-muted); }
+    .toggle-row { display: flex; align-items: center; gap: 10px; font-family: var(--font-ui); font-size: 14px; color: var(--text); cursor: pointer; }
+    .toggle-row input { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+    .section-divider { border: 0; border-top: 1px solid var(--line); margin: 24px 0 18px; }
+    .section-label { font-family: var(--font-display); font-size: 18px; margin: 0 0 14px; color: var(--text); }
+    .preview-box { border: 1px solid var(--line); border-radius: 3px; padding: 24px; background: var(--bg); max-height: 400px; overflow-y: auto; margin-top: 10px; }
+    .preview-box h1,.preview-box h2,.preview-box h3 { font-family: var(--font-display); }
+    .preview-box p { margin: 0 0 14px; }
+    .preview-box blockquote { margin: 14px 0; padding: 6px 0 6px 16px; border-left: 3px solid var(--accent); color: var(--text-muted); font-style: italic; }
+    .tags-input-wrap { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 8px 12px; border: 1px solid var(--line); border-radius: 2px; background: var(--bg); min-height: 44px; cursor: text; }
+    .tags-input-wrap input { border: 0; outline: 0; font-family: var(--font-body); font-size: 15px; color: var(--text); background: transparent; flex: 1; min-width: 100px; padding: 2px 0; }
+    .tag-chip { display: inline-flex; align-items: center; gap: 4px; font-family: var(--font-ui); font-size: 12px; padding: 3px 10px; border-radius: 20px; background: var(--bg-alt); border: 1px solid var(--line); color: var(--text-muted); }
+    .tag-chip .tag-x { cursor: pointer; font-size: 14px; line-height: 1; color: var(--text-muted); margin-left: 2px; }
+    .tag-chip .tag-x:hover { color: #a8453a; }
+    @media (max-width: 560px) { .row2, .row3, .row4 { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -91,6 +114,7 @@
       <button class="linklike" id="backBtn">&larr; Înapoi la listă</button>
     </div>
 
+    <!-- INFORMAȚII DE BAZĂ -->
     <div class="field"><label for="f-title">Titlu</label><input id="f-title" type="text" placeholder="Ex: De ce iubesc jocurile retro"></div>
 
     <div class="row2">
@@ -105,13 +129,26 @@
     </div>
 
     <div class="field">
+      <label>Taguri</label>
+      <div class="tags-input-wrap" id="tagsWrap">
+        <input id="f-tags" type="text" placeholder="Scrie un tag și apasă Enter">
+      </div>
+      <p class="hint">Apasă Enter sau virgulă pentru a adăuga un tag. Click pe × pentru a-l șterge.</p>
+    </div>
+
+    <div class="field">
       <label for="f-schedule">Programează publicarea (opțional)</label>
       <input id="f-schedule" type="datetime-local">
-      <p class="hint">Dacă alegi o dată/oră din viitor, articolul rămâne ascuns pe blog până atunci, apoi apare singur. Lasă gol ca să publici acum.</p>
+      <p class="hint">Dacă alegi o dată/oră din viitor, articolul rămâne ascuns pe blog până atunci. Lasă gol ca să publici acum.</p>
     </div>
 
     <div class="field"><label for="f-summary">Rezumat scurt (apare pe card)</label><input id="f-summary" type="text" placeholder="Despre ce e articolul, pe scurt."></div>
 
+    <label class="toggle-row" style="margin-bottom:18px">
+      <input type="checkbox" id="f-featured"> Articol evidențiat (featured)
+    </label>
+
+    <!-- IMAGINE PRINCIPALĂ -->
     <div class="field">
       <label for="f-image">Imagine principală (opțional)</label>
       <input id="f-image" type="file" accept="image/*">
@@ -119,8 +156,93 @@
     </div>
 
     <div class="field">
-      <label for="f-body">Conținut</label>
-      <textarea id="f-body" placeholder="Scrie aici articolul...
+      <label for="f-heroStyle">Stil imagine header</label>
+      <select id="f-heroStyle">
+        <option value="default">Standard (sub titlu)</option>
+        <option value="wide">Lată (full-width)</option>
+        <option value="none">Fără imagine în articol</option>
+      </select>
+    </div>
+
+    <!-- PERSONALIZARE VIZUALĂ -->
+    <hr class="section-divider">
+    <p class="section-label">Personalizare vizuală</p>
+
+    <div class="row3">
+      <div class="field">
+        <label>Culoare accent</label>
+        <div class="color-row">
+          <input type="color" id="f-accentColor" value="#7C6A4E">
+          <span class="color-label" id="accentLabel">#7C6A4E</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Culoare text</label>
+        <div class="color-row">
+          <input type="color" id="f-textColor" value="#2C2B28">
+          <span class="color-label" id="textLabel">#2C2B28</span>
+        </div>
+      </div>
+      <div class="field">
+        <label>Culoare fundal</label>
+        <div class="color-row">
+          <input type="color" id="f-bgColor" value="#F5F3EE">
+          <span class="color-label" id="bgLabel">#F5F3EE</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row2">
+      <div class="field">
+        <label for="f-fontSize">Mărime font conținut</label>
+        <select id="f-fontSize">
+          <option value="16">Mic (16px)</option>
+          <option value="18" selected>Normal (18px)</option>
+          <option value="20">Mare (20px)</option>
+          <option value="22">Extra mare (22px)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="f-postWidth">Lățime articol</label>
+        <select id="f-postWidth">
+          <option value="720" selected>Normal (720px)</option>
+          <option value="860">Lat (860px)</option>
+          <option value="1000">Extra lat (1000px)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="f-customCss">CSS personalizat (opțional, avansat)</label>
+      <textarea id="f-customCss" style="min-height:60px;font-family:monospace;font-size:14px" placeholder=".post-body { letter-spacing: 0.02em; }"></textarea>
+      <p class="hint">Stiluri CSS extra aplicate doar acestui articol. Lasă gol dacă nu ai nevoie.</p>
+    </div>
+
+    <!-- CONȚINUT CU TOOLBAR -->
+    <hr class="section-divider">
+    <p class="section-label">Conținut articol</p>
+
+    <div class="field">
+      <label for="f-body">Editor</label>
+      <div class="toolbar" id="editorToolbar">
+        <button type="button" data-md="bold" title="Îngroșat"><strong>B</strong></button>
+        <button type="button" data-md="italic" title="Italic"><em>I</em></button>
+        <button type="button" data-md="strikethrough" title="Tăiat"><s>S</s></button>
+        <div class="sep"></div>
+        <button type="button" data-md="h2" title="Titlu H2">H2</button>
+        <button type="button" data-md="h3" title="Subtitlu H3">H3</button>
+        <button type="button" data-md="h4" title="Subtitlu H4">H4</button>
+        <div class="sep"></div>
+        <button type="button" data-md="quote" title="Citat">❝</button>
+        <button type="button" data-md="ul" title="Listă cu buline">• —</button>
+        <button type="button" data-md="ol" title="Listă numerotată">1.</button>
+        <div class="sep"></div>
+        <button type="button" data-md="link" title="Link">🔗</button>
+        <button type="button" data-md="hr" title="Linie separatoare">——</button>
+        <button type="button" data-md="code" title="Cod inline">&lt;/&gt;</button>
+        <button type="button" data-md="codeblock" title="Bloc de cod">{ }</button>
+      </div>
+      <textarea id="f-body" class="has-toolbar" placeholder="Scrie aici articolul...
 
 Lasă un rând gol între paragrafe.
 ## Subtitlu
@@ -129,9 +251,10 @@ Lasă un rând gol între paragrafe.
       <div class="admin-actions" style="margin-top:10px">
         <button class="btn-sm" id="insertImgBtn" type="button">+ Inserează imagine în text</button>
         <input id="bodyImgInput" type="file" accept="image/*" class="hidden">
+        <button class="btn-sm" id="previewToggle" type="button">Previzualizare</button>
       </div>
       <div id="imgChips"></div>
-      <p class="hint">Formatare simplă (Markdown): <strong>**îngroșat**</strong>, <strong>## subtitlu</strong>, <strong>&gt; citat</strong>, liste cu „- ". Un rând gol = paragraf nou.</p>
+      <div id="previewBox" class="preview-box" style="display:none"></div>
     </div>
 
     <div class="admin-actions">
@@ -158,12 +281,21 @@ Lasă un rând gol între paragrafe.
     var insertImgBtn = $('insertImgBtn'), bodyImgInput = $('bodyImgInput'), imgChips = $('imgChips');
     var publishBtn = $('publishBtn'), spinner = $('spinner'), editorMsg = $('editorMsg');
 
+    var fTags = $('f-tags'), tagsWrap = $('tagsWrap');
+    var fFeatured = $('f-featured'), fHeroStyle = $('f-heroStyle');
+    var fAccentColor = $('f-accentColor'), fTextColor = $('f-textColor'), fBgColor = $('f-bgColor');
+    var fFontSize = $('f-fontSize'), fPostWidth = $('f-postWidth'), fCustomCss = $('f-customCss');
+    var accentLabel = $('accentLabel'), textLabel = $('textLabel'), bgLabel = $('bgLabel');
+    var previewToggle = $('previewToggle'), previewBox = $('previewBox');
+    var editorToolbar = $('editorToolbar');
+
     var currentPw = '';
-    var editSlug = null;     // null = articol nou
-    var editEntry = null;    // intrarea din posts.json când editezi
-    var lastList = [];       // ultima listă încărcată
-    var bodyImages = [];     // imagini inserate în text (staged)
+    var editSlug = null;
+    var editEntry = null;
+    var lastList = [];
+    var bodyImages = [];
     var imgCounter = 0;
+    var currentTags = [];
 
     // ---------- autentificare ----------
     var saved = localStorage.getItem(KEY);
@@ -294,6 +426,13 @@ Lasă un rând gol între paragrafe.
       fDate.value = new Date().toISOString().slice(0, 10); fSchedule.value = '';
       fImage.value = ''; fBody.value = ''; bodyImages = []; imgCounter = 0;
       imgChips.innerHTML = ''; thumbNote.textContent = ''; clearMsg(editorMsg);
+      currentTags = []; renderTags(); fFeatured.checked = false;
+      fHeroStyle.value = 'default';
+      fAccentColor.value = '#7C6A4E'; accentLabel.textContent = '#7C6A4E';
+      fTextColor.value = '#2C2B28'; textLabel.textContent = '#2C2B28';
+      fBgColor.value = '#F5F3EE'; bgLabel.textContent = '#F5F3EE';
+      fFontSize.value = '18'; fPostWidth.value = '720'; fCustomCss.value = '';
+      previewBox.style.display = 'none'; previewToggle.textContent = 'Previzualizare';
     }
     function openForm() { listView.classList.add('hidden'); formView.classList.remove('hidden'); window.scrollTo(0, 0); }
 
@@ -310,6 +449,15 @@ Lasă un rând gol între paragrafe.
       fSchedule.value = entry.publishAt ? String(entry.publishAt).slice(0, 16) : '';
       fSummary.value = entry.summary || '';
       thumbNote.textContent = entry.thumbnail ? 'Imagine actuală păstrată. Alege un fișier doar dacă vrei s-o înlocuiești.' : '';
+      if (entry.tags && Array.isArray(entry.tags)) { currentTags = entry.tags.slice(); renderTags(); }
+      fFeatured.checked = !!entry.featured;
+      if (entry.heroStyle) fHeroStyle.value = entry.heroStyle;
+      if (entry.accentColor) { fAccentColor.value = entry.accentColor; accentLabel.textContent = entry.accentColor.toUpperCase(); }
+      if (entry.textColor) { fTextColor.value = entry.textColor; textLabel.textContent = entry.textColor.toUpperCase(); }
+      if (entry.bgColor) { fBgColor.value = entry.bgColor; bgLabel.textContent = entry.bgColor.toUpperCase(); }
+      if (entry.fontSize) fFontSize.value = String(entry.fontSize);
+      if (entry.postWidth) fPostWidth.value = String(entry.postWidth);
+      if (entry.customCss) fCustomCss.value = entry.customCss;
       openForm();
       // încarcă conținutul (markdown) din pagina articolului
       msg(editorMsg, 'info', 'Se încarcă conținutul…');
@@ -324,6 +472,79 @@ Lasă un rând gol între paragrafe.
         })
         .catch(function () { clearMsg(editorMsg); });
     }
+
+    // ---------- color pickers ----------
+    fAccentColor.addEventListener('input', function () { accentLabel.textContent = fAccentColor.value.toUpperCase(); });
+    fTextColor.addEventListener('input', function () { textLabel.textContent = fTextColor.value.toUpperCase(); });
+    fBgColor.addEventListener('input', function () { bgLabel.textContent = fBgColor.value.toUpperCase(); });
+
+    // ---------- tags ----------
+    function renderTags() {
+      var chips = tagsWrap.querySelectorAll('.tag-chip');
+      for (var i = chips.length - 1; i >= 0; i--) chips[i].remove();
+      currentTags.forEach(function (tag, idx) {
+        var chip = document.createElement('span'); chip.className = 'tag-chip';
+        chip.innerHTML = esc(tag) + '<span class="tag-x" data-idx="' + idx + '">&times;</span>';
+        tagsWrap.insertBefore(chip, fTags);
+      });
+    }
+    function addTag(val) {
+      var t = val.trim(); if (!t || currentTags.indexOf(t) !== -1) return;
+      currentTags.push(t); renderTags(); fTags.value = '';
+    }
+    fTags.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addTag(fTags.value); }
+      if (e.key === 'Backspace' && !fTags.value && currentTags.length) { currentTags.pop(); renderTags(); }
+    });
+    tagsWrap.addEventListener('click', function (e) {
+      if (e.target.classList.contains('tag-x')) { currentTags.splice(parseInt(e.target.getAttribute('data-idx'), 10), 1); renderTags(); }
+      fTags.focus();
+    });
+
+    // ---------- toolbar ----------
+    editorToolbar.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-md]'); if (!btn) return;
+      var action = btn.getAttribute('data-md');
+      var s = fBody.selectionStart || 0, end = fBody.selectionEnd || 0;
+      var sel = fBody.value.substring(s, end);
+      var before = '', after = '', insert = '';
+      switch (action) {
+        case 'bold': before = '**'; after = '**'; insert = sel || 'text îngroșat'; break;
+        case 'italic': before = '*'; after = '*'; insert = sel || 'text italic'; break;
+        case 'strikethrough': before = '~~'; after = '~~'; insert = sel || 'text tăiat'; break;
+        case 'h2': before = '\n## '; insert = sel || 'Titlu'; break;
+        case 'h3': before = '\n### '; insert = sel || 'Subtitlu'; break;
+        case 'h4': before = '\n#### '; insert = sel || 'Subtitlu mic'; break;
+        case 'quote': before = '\n> '; insert = sel || 'citat'; break;
+        case 'ul': before = '\n- '; insert = sel || 'element'; break;
+        case 'ol': before = '\n1. '; insert = sel || 'element'; break;
+        case 'link':
+          var url = prompt('URL:', 'https://');
+          if (!url) return;
+          before = '['; after = '](' + url + ')'; insert = sel || 'text link'; break;
+        case 'hr': before = '\n\n---\n\n'; insert = ''; break;
+        case 'code': before = '`'; after = '`'; insert = sel || 'cod'; break;
+        case 'codeblock': before = '\n```\n'; after = '\n```\n'; insert = sel || 'cod aici'; break;
+      }
+      var replacement = before + insert + (after || '');
+      fBody.value = fBody.value.substring(0, s) + replacement + fBody.value.substring(end);
+      var newPos = s + before.length + insert.length;
+      fBody.selectionStart = s + before.length;
+      fBody.selectionEnd = newPos;
+      fBody.focus();
+    });
+
+    // ---------- preview ----------
+    previewToggle.addEventListener('click', function () {
+      if (previewBox.style.display === 'none') {
+        previewBox.style.display = 'block';
+        previewBox.innerHTML = marked.parse(fBody.value || '*Scrie ceva în editor pentru a vedea previzualizarea.*');
+        previewToggle.textContent = 'Ascunde previzualizarea';
+      } else {
+        previewBox.style.display = 'none';
+        previewToggle.textContent = 'Previzualizare';
+      }
+    });
 
     insertImgBtn.addEventListener('click', function () { bodyImgInput.click(); });
     bodyImgInput.addEventListener('change', function () {
@@ -341,8 +562,22 @@ Lasă un rând gol între paragrafe.
 
     // construiește pagina HTML completă a articolului
     function buildPostHtml(d) {
-      var hero = d.heroPath ? ('\n      <img src="' + d.heroPath + '" alt="' + esc(d.title) + '" class="post-hero-img">') : '';
+      var heroClass = d.heroStyle === 'wide' ? ' post-hero-img--wide' : '';
+      var hero = (d.heroPath && d.heroStyle !== 'none') ? ('\n      <img src="' + d.heroPath + '" alt="' + esc(d.title) + '" class="post-hero-img' + heroClass + '">') : '';
       var lead = d.summary ? ('\n      <p class="post-lead">' + esc(d.summary) + '</p>') : '';
+
+      var customVars = '';
+      var isCustom = false;
+      if (d.accentColor && d.accentColor !== '#7C6A4E') { customVars += '--accent:' + d.accentColor + ';'; isCustom = true; }
+      if (d.textColor && d.textColor !== '#2C2B28') { customVars += '--text:' + d.textColor + ';'; isCustom = true; }
+      if (d.bgColor && d.bgColor !== '#F5F3EE') { customVars += '--bg:' + d.bgColor + ';'; isCustom = true; }
+      if (d.fontSize && d.fontSize !== '18') { customVars += '--post-font-size:' + d.fontSize + 'px;'; isCustom = true; }
+      if (d.postWidth && d.postWidth !== '720') { customVars += '--post-width:' + d.postWidth + 'px;'; isCustom = true; }
+
+      var customStyle = '';
+      if (isCustom) customStyle = '\n  <style>:root{' + customVars + '} .post-content{max-width:var(--post-width,720px)} .post-body{font-size:var(--post-font-size,18px)}</style>';
+      if (d.customCss) customStyle += '\n  <style>' + d.customCss + '</style>';
+
       return '' +
 '<!DOCTYPE html>\n<html lang="ro">\n<head>\n' +
 '  <meta charset="UTF-8">\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
@@ -351,7 +586,7 @@ Lasă un rând gol între paragrafe.
 '  <link rel="preconnect" href="https://fonts.googleapis.com">\n' +
 '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
 '  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet">\n' +
-'  <link rel="stylesheet" href="../style.css">\n</head>\n<body>\n' +
+'  <link rel="stylesheet" href="../style.css">' + customStyle + '\n</head>\n<body>\n' +
 '  <header class="nav-wrap">\n    <nav class="nav" aria-label="Navigație principală">\n' +
 '      <a class="nav-logo" href="../index.html">Kevin Cornea</a>\n' +
 '      <button class="nav-toggle" id="navToggle" aria-label="Deschide meniul" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>\n' +
@@ -394,10 +629,20 @@ Lasă un rând gol între paragrafe.
         if (newImg) heroPath = '__THUMB_PATH__';
         else if (editEntry && editEntry.thumbnail) heroPath = '../' + editEntry.thumbnail;
 
+        var accentColor = fAccentColor.value;
+        var textColor = fTextColor.value;
+        var bgColor = fBgColor.value;
+        var fontSize = fFontSize.value;
+        var postWidth = fPostWidth.value;
+        var customCss = fCustomCss.value.trim();
+        var heroStyle = fHeroStyle.value;
+
         var bodyHtml = marked.parse(bodyMd);
         var postHtml = buildPostHtml({
           title: title, date: displayDate, category: fCategory.value,
-          summary: fSummary.value.trim(), bodyHtml: bodyHtml, heroPath: heroPath
+          summary: fSummary.value.trim(), bodyHtml: bodyHtml, heroPath: heroPath,
+          accentColor: accentColor, textColor: textColor, bgColor: bgColor,
+          fontSize: fontSize, postWidth: postWidth, customCss: customCss, heroStyle: heroStyle
         });
 
         var payload = {
@@ -413,7 +658,16 @@ Lasă un rând gol între paragrafe.
           imageExt: img ? img.ext : '',
           keepThumbnail: (!newImg && editEntry && editEntry.thumbnail) ? editEntry.thumbnail : '',
           archived: !!(editEntry && editEntry.archived),
-          publishAt: publishAt
+          publishAt: publishAt,
+          tags: currentTags,
+          featured: fFeatured.checked,
+          heroStyle: heroStyle,
+          accentColor: accentColor,
+          textColor: textColor,
+          bgColor: bgColor,
+          fontSize: fontSize,
+          postWidth: postWidth,
+          customCss: customCss
         };
 
         msg(editorMsg, 'info', 'Se salvează pe blog…');

@@ -349,6 +349,32 @@ textarea:focus-visible {
 }
 .search-input::placeholder { color: #9a988f; }
 
+.category-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.cat-btn {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.cat-btn:hover { border-color: var(--accent); color: var(--accent); }
+.cat-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
 /* ----- 7c. PAGINATION ------------------------------------------- */
 .pagination {
   display: flex;
@@ -595,6 +621,14 @@ textarea:focus-visible {
   border: 1px solid var(--line);
   border-radius: 3px;
   filter: saturate(0.85);
+}
+.post-hero-img--wide {
+  max-width: none;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
 }
 .post-body { font-size: 18px; }
 .post-body p { margin: 0 0 22px; }

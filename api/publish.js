@@ -154,6 +154,15 @@ module.exports = async (req, res) => {
     };
     if (body.archived) entry.archived = true;
     if (body.publishAt) entry.publishAt = body.publishAt;
+    if (body.tags && Array.isArray(body.tags) && body.tags.length) entry.tags = body.tags;
+    if (body.featured) entry.featured = true;
+    if (body.heroStyle && body.heroStyle !== 'default') entry.heroStyle = body.heroStyle;
+    if (body.accentColor && body.accentColor !== '#7C6A4E') entry.accentColor = body.accentColor;
+    if (body.textColor && body.textColor !== '#2C2B28') entry.textColor = body.textColor;
+    if (body.bgColor && body.bgColor !== '#F5F3EE') entry.bgColor = body.bgColor;
+    if (body.fontSize && body.fontSize !== '18') entry.fontSize = body.fontSize;
+    if (body.postWidth && body.postWidth !== '720') entry.postWidth = body.postWidth;
+    if (body.customCss) entry.customCss = body.customCss;
 
     const existIdx = list.findIndex((p) => p.slug === finalSlug);
     if (existIdx >= 0) list[existIdx] = entry; else list.unshift(entry);
