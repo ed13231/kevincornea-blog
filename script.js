@@ -85,28 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ----- 3. HOMEPAGE — CARUSEL ULTIMELE ARTICOLE ----------------- */
-  function construiesteCarouselCard(post) {
-    var meta = scapaHtml(post.category) + ' &middot; ' + scapaHtml(formateazaData(post.date));
-    var thumb = post.thumbnail
-      ? '<img class="carousel-card__thumb" src="' + scapaHtml(post.thumbnail) +
-        '" alt="' + scapaHtml(post.title) + '" loading="lazy">'
-      : '';
-    var summary = post.summary
-      ? '<p class="carousel-card__summary">' + scapaHtml(post.summary) + '</p>'
-      : '';
-
-    return '' +
-      '<a class="carousel-card" href="' + scapaHtml(post.file) + '">' +
-        thumb +
-        '<div class="carousel-card__body">' +
-          '<p class="carousel-card__meta">' + meta + '</p>' +
-          '<h3 class="carousel-card__title">' + scapaHtml(post.title) + '</h3>' +
-          summary +
-        '</div>' +
-      '</a>';
-  }
-
+  /* ----- 3. HOMEPAGE — ULTIMELE 3 ARTICOLE ---------------------- */
   var latestGrid = document.getElementById('latestPostGrid');
   if (latestGrid) {
     fetch('posts.json', { cache: 'no-store' })
@@ -121,25 +100,8 @@ document.addEventListener('DOMContentLoaded', function () {
           latestGrid.innerHTML = '<p class="post-grid-error">Niciun articol publicat încă.</p>';
           return;
         }
-        var latest = visible.slice(0, 5);
-        var cards = latest.map(construiesteCarouselCard).join('');
-        var copies = latest.length <= 2 ? 4 : 3;
-        var html = '';
-        for (var c = 0; c < copies; c++) { html += cards; }
-        latestGrid.innerHTML = html;
-
-        requestAnimationFrame(function () {
-          var oneSetWidth = 0;
-          var children = latestGrid.children;
-          var count = latest.length;
-          for (var i = 0; i < count; i++) {
-            oneSetWidth += children[i].offsetWidth + 24;
-          }
-          latestGrid.style.setProperty('--carousel-offset', '-' + oneSetWidth + 'px');
-          var speed = 50;
-          latestGrid.style.setProperty('--carousel-duration', (oneSetWidth / speed) + 's');
-          latestGrid.classList.add('is-scrolling');
-        });
+        var latest = visible.slice(0, 3);
+        latestGrid.innerHTML = latest.map(construiesteCard).join('');
       })
       .catch(function () {
         latestGrid.innerHTML = '<p class="post-grid-error">Articolele nu au putut fi încărcate.</p>';
