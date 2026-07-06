@@ -1,5 +1,17 @@
 [
   {
+    "slug": "un-omagiu-adus-rpg-urilor-clasice",
+    "title": "Un omagiu adus RPG-urilor clasice",
+    "date": "2026-07-06",
+    "category": "Jocuri video",
+    "summary": "O prezentare a jocului Undertale și a motivelor pentru care merită jucat.",
+    "thumbnail": "images/posts/un-omagiu-adus-rpg-urilor-clasice-thumb.webp",
+    "file": "posts/un-omagiu-adus-rpg-urilor-clasice.html",
+    "accentColor": "#7c6a4e",
+    "textColor": "#2c2b28",
+    "bgColor": "#f5f3ee"
+  },
+  {
     "slug": "de-ce-prefer-inca-jocurile-retro",
     "title": "De ce prefer încă jocurile retro",
     "date": "2026-06-30",
