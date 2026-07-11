@@ -1,5 +1,17 @@
 [
   {
+    "slug": "hezarfen-ahmed-elebi-pionierul-zborului",
+    "title": "Hezârfen Ahmed Çelebi, pionierul zborului",
+    "date": "2026-07-11",
+    "category": "Istorie",
+    "summary": "Povestea lui Hezarfen Ahmed Çelebi, inventatorul otoman considerat primul om care a realizat un zbor susținut. O reușită remarcabilă, dar un nume aproape uitat astăzi.",
+    "thumbnail": "images/posts/hezarfen-ahmed-elebi-pionierul-zborului-thumb.jpg",
+    "file": "posts/hezarfen-ahmed-elebi-pionierul-zborului.html",
+    "accentColor": "#7c6a4e",
+    "textColor": "#2c2b28",
+    "bgColor": "#f5f3ee"
+  },
+  {
     "slug": "piata-muncii-din-romania-are-nevoie-de-o-schimbare",
     "title": "Piața muncii din România are nevoie de o schimbare",
     "date": "2026-07-09",
